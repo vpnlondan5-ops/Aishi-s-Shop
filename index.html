@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aishi's Shop - Home / Menu</title>
+    <style>
+        :root {
+            --primary: #8C6D53;
+            --secondary: #F4EBE1;
+            --accent: #D4A373;
+            --dark: #333333;
+            --light: #FAFAFA;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--white);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            letter-spacing: 1px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        /* Search Bar in Top Middle */
+        .search-container {
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s;
+            background-color: var(--secondary);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            background-color: var(--white);
+            box-shadow: 0 0 5px rgba(140, 109, 83, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+            font-size: 14px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        nav a {
+            margin-left: 15px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: var(--secondary);
+            color: var(--primary);
+        }
+
+        .contact-nav-btn {
+            background-color: #25D366;
+            color: var(--white) !important;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .contact-nav-btn:hover {
+            background-color: #20ba5a !important;
+        }
+
+        /* Top Rolling Announcement Bar for Discounts & Info */
+        .announcement-bar {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .announcement-track {
+            display: inline-block;
+            white-space: nowrap;
+            animation: rollingText 25s linear infinite;
+        }
+
+        .announcement-track span {
+            margin-right: 50px;
+        }
+
+        .announcement-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes rollingText {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Hero Section with Night Sky & Fireworks */
+        .hero {
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Stars Background */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 230px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 320px 150px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 350px 200px;
+            opacity: 0.7;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            50% { opacity: 0.9; }
+            100% { opacity: 0.5; }
+        }
+
+        /* Fireworks Canvas */
+        #fireworksCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero h1, .hero p {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 650px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        /* Continuous Train Showcase / Marquee Slider */
+        .train-showcase-container {
+            background-color: var(--secondary);
+            padding: 20px 0;
+            overflow: hidden;
+            width: 100%;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .train-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            animation: scrollTrain 25s linear infinite;
+        }
+
+        .train-track:hover {
+            animation-play-state: paused;
+        }
+
+        .train-item {
+            background: var(--white);
+            border-radius: 6px;
+            padding: 8px;
+            width: 180px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: center;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .train-item:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 8px 15px rgba(140, 109, 83, 0.3);
+            border: 1px solid var(--primary);
+        }
+
+        .train-item img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+
+        .train-item span {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark);
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @keyframes scrollTrain {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+            margin-top: 20px;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            color: var(--primary);
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .view-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.2s;
+        }
+
+        .view-btn:hover {
+            background-color: #72553f;
+        }
+
+        /* Modal Overlays */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 8px;
+            max-width: 850px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--dark);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 30px;
+            gap: 30px;
+        }
+
+        .modal-img-container {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .modal-details {
+            flex: 1.2;
+            min-width: 280px;
+        }
+
+        .modal-details h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .modal-price {
+            font-size: 22px;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .modal-desc {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Raw Materials Grid inside Jewellery Modal */
+        .materials-box {
+            background-color: var(--secondary);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .materials-box h4 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .material-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 10px;
+        }
+
+        .material-mini-card {
+            background: var(--white);
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            transition: all 0.2s;
+        }
+
+        .material-mini-card:hover {
+            border-color: var(--primary);
+            transform: scale(1.03);
+        }
+
+        .material-mini-card img {
+            width: 100%;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 3px;
+            margin-bottom: 5px;
+        }
+
+        .material-mini-card span {
+            font-size: 12px;
+            font-weight: 500;
+            display: block;
+            color: var(--dark);
+        }
+
+        .buy-now-btn {
+            background-color: #27ae60;
+            color: var(--white);
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .buy-now-btn:hover {
+            background-color: #219653;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 25px;
+            margin-top: 60px;
+            font-size: 14px;
+        }
+
+        @media(max-width: 900px) {
+            header {
+                flex-wrap: wrap;
+            }
+            .search-container {
+                order: 3;
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Rolling Announcement Bar for Discounts & Info -->
+    <div class="announcement-bar">
+        <div class="announcement-track">
+            <span>🔥 Special Offer: Get 15% OFF on all Handmade Jewellery using code <strong>GEM15</strong>!</span>
+            <span>✨ Free Shipping on orders over $50!</span>
+            <span>💎 New Raw Materials collection is live now!</span>
+            <span>🎉 Flash Sale: Up to 20% OFF on Selected Raw Materials this weekend!</span>
+        </div>
+    </div>
+
+    <!-- Header Navigation with Search Bar in Top Middle -->
+    <header>
+        <div class="logo" onclick="switchPage('menu')">✨ Aishi's Shop</div>
+        
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search jewellery or raw materials..." oninput="handleSearch()">
+        </div>
+
+        <nav>
+            <a id="menuNav" onclick="switchPage('menu')">Home</a>
+            <a id="jewelleryNav" onclick="switchPage('jewellery')">Jewellery</a>
+            <a id="materialsNav" onclick="switchPage('materials')">Materials</a>
+            <a class="contact-nav-btn" onclick="openGeneralContactWhatsApp()">💬 WhatsApp</a>
+        </nav>
+    </header>
+
+    <!-- Dynamic Hero Banner with Night Sky & Fireworks -->
+    <section class="hero" id="heroSection">
+        <div class="stars"></div>
+        <canvas id="fireworksCanvas"></canvas>
+        <h1 id="heroTitle">Welcome to Aishi's Shop</h1>
+        <p id="heroDesc">Explore and shop all handmade jewellery and raw materials together on one page.</p>
+    </section>
+
+    <!-- Continuous Train Showcase (Marquee Slider) -->
+    <div class="train-showcase-container" id="trainShowcase">
+        <div class="train-track" id="trainTrack">
+            <!-- Items populated dynamically -->
+        </div>
+    </div>
+
+    <!-- Main Dynamic Content Container -->
+    <div class="container" id="mainContainer">
+        <!-- Content injected dynamically via JavaScript -->
+    </div>
+
+    <!-- Jewellery Buy Now / Details Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
+            <div class="modal-body">
+                <div class="modal-img-container">
+                    <img id="modalImg" src="" alt="Jewellery" class="modal-img">
+                </div>
+                <div class="modal-details">
+                    <h2 id="modalTitle">Title</h2>
+                    <div class="modal-price" id="modalPrice">$0.00</div>
+                    <p class="modal-desc" id="modalDesc">Description</p>
+                    
+                    <div class="materials-box">
+                        <h4>🛠️ Required Raw Materials (Click to buy):</h4>
+                        <div class="material-cards-grid" id="modalMaterialsGrid"></div>
+                    </div>
+
+                    <button class="buy-now-btn" id="modalBuyBtn">Buy Complete Jewellery via WhatsApp</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Raw Material Direct Purchase Modal -->
+    <div class="modal" id="materialModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close-btn" onclick="closeModal('materialModal')">&times;</span>
+            <div style="padding: 30px; text-align: center;">
+                <img id="matModalImg" src="" alt="Raw Material" style="width: 100%; height: 220px; object-fit: cover; border-radius: 6px; margin-bottom: 15px;">
+                <h2 id="matModalTitle" style="font-size: 22px; margin-bottom: 10px;">Material Name</h2>
+                <div id="matModalPrice" style="font-size: 20px; color: var(--primary); font-weight: bold; margin-bottom: 15px;">$0.00</div>
+                <p style="font-size: 14px; color: #666; margin-bottom: 20px;">High-quality raw material to help you create your own custom jewellery.</p>
+                <button class="buy-now-btn" id="matModalBuyBtn">Buy Raw Material via WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Aishi's Shop. All rights reserved. Handmade with love.</p>
+    </footer>
+
+    <!-- JavaScript Data and Page Control Logic -->
+    <script>
+        const whatsappNumber = "916296795459";
+        let currentPage = 'menu';
+
+        const products = [
+            {
+                id: 1,
+                title: "Boho Turquoise Statement Ring",
+                price: "$45.00",
+                image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80",
+                description: "Handcrafted sterling silver ring featuring a natural turquoise gemstone.",
+                materials: [
+                    { name: "Silver Wire", price: "$8.00", image: "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?auto=format&fit=crop&w=300&q=80" },
+                    { name: "Turquoise Stone", price: "$15.00", image: "https://images.unsplash.com/photo-1598560917505-59a3ad559071?auto=format&fit=crop&w=300&q=80" },
+                    { name: "Silver Solder", price: "$5.00", image: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=300&q=80" }
+                ]
+            },
+            {
+                id: 2,
+                title: "Gold Dainty Layered Necklace",
+                price: "$60.00",
+                image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80",
+                description: "An elegant 14k gold-filled chain necklace embellished with tiny freshwater pearls.",
+                materials: [
+                    { name: "Gold Chain", price: "$18.00", image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=300&q=80" },
+                    { name: "Seed Pearls", price: "$10.00", image: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&w=300&q=80" },
+                    { name: "Spring Clasp", price: "$3.00", image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=300&q=80" }
+                ]
+            }
+        ];
+
+        const allRawMaterials = [
+            { name: "Silver Wire", price: "$8.00", image: "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?auto=format&fit=crop&w=300&q=80" },
+            { name: "Turquoise Stone", price: "$15.00", image: "https://images.unsplash.com/photo-1598560917505-59a3ad559071?auto=format&fit=crop&w=300&q=80" },
+            { name: "Silver Solder", price: "$5.00", image: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=300&q=80" },
+            { name: "Gold Chain", price: "$18.00", image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=300&q=80" },
+            { name: "Seed Pearls", price: "$10.00", image: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&w=300&q=80" },
+            { name: "Spring Clasp", price: "$3.00", image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=300&q=80" }
+        ];
+
+        function initTrainShowcase() {
+            const track = document.getElementById('trainTrack');
+            const combinedItems = [...products, ...allRawMaterials, ...products, ...allRawMaterials];
+            
+            track.innerHTML = combinedItems.map(item => {
+                const isJewellery = item.id !== undefined;
+                return `
+                    <div class="train-item" onclick="${isJewellery ? `openProductModal(${item.id})` : `openMaterialModal('${item.name}', '${item.price}', '${item.image}')`}">
+                        <img src="${item.image}" alt="${item.title || item.name}">
+                        <span>${item.title || item.name}</span>
+                        <small style="color:var(--primary); font-weight:bold; display:block; margin-top:2px;">${item.price}</small>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function switchPage(page) {
+            currentPage = page;
+            document.getElementById('searchInput').value = '';
+            document.getElementById('menuNav').classList.remove('active');
+            document.getElementById('jewelleryNav').classList.remove('active');
+            document.getElementById('materialsNav').classList.remove('active');
+
+            const heroTitle = document.getElementById('heroTitle');
+            const heroDesc = document.getElementById('heroDesc');
+
+            if (page === 'menu') {
+                document.getElementById('menuNav').classList.add('active');
+                heroTitle.textContent = "Welcome to Aishi's Shop";
+                heroDesc.textContent = "Explore and shop all handmade jewellery and raw materials together on one page.";
+            } else if (page === 'jewellery') {
+                document.getElementById('jewelleryNav').classList.add('active');
+                heroTitle.textContent = "Handmade Jewellery Collection";
+                heroDesc.textContent = "Our exclusive collection of handcrafted jewellery. Click any item to view details and required materials.";
+            } else if (page === 'materials') {
+                document.getElementById('materialsNav').classList.add('active');
+                heroTitle.textContent = "Raw Materials Store";
+                heroDesc.textContent = "Purchase all essential raw materials for jewellery making directly.";
+            }
+
+            renderContent(products, allRawMaterials);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderContent(filteredProducts, filteredMaterials) {
+            const container = document.getElementById('mainContainer');
+            
+            if (currentPage === 'menu') {
+                container.innerHTML = `
+                    <h2 class="section-title">💍 Handmade Jewellery Collection</h2>
+                    <div class="product-grid">
+                        ${filteredProducts.length > 0 ? filteredProducts.map(p => renderCard(p, 'jewellery')).join('') : '<p>No jewellery found.</p>'}
+                    </div>
+
+                    <h2 class="section-title">🛠️ Raw Materials Store</h2>
+                    <div class="product-grid">
+                        ${filteredMaterials.length > 0 ? filteredMaterials.map(m => renderCard(m, 'material')).join('') : '<p>No raw materials found.</p>'}
+                    </div>
+                `;
+            } else if (currentPage === 'jewellery') {
+                container.innerHTML = `
+                    <h2 class="section-title">💍 All Handmade Jewellery</h2>
+                    <div class="product-grid">
+                        ${filteredProducts.length > 0 ? filteredProducts.map(p => renderCard(p, 'jewellery')).join('') : '<p>No jewellery found matching your search.</p>'}
+                    </div>
+                `;
+            } else if (currentPage === 'materials') {
+                container.innerHTML = `
+                    <h2 class="section-title">🛠️ All Raw Materials</h2>
+                    <div class="product-grid">
+                        ${filteredMaterials.length > 0 ? filteredMaterials.map(m => renderCard(m, 'material')).join('') : '<p>No raw materials found matching your search.</p>'}
+                    </div>
+                `;
+            }
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            
+            const matchedProducts = products.filter(p => p.title.toLowerCase().includes(query) || p.description.toLowerCase().includes(query));
+            const matchedMaterials = allRawMaterials.filter(m => m.name.toLowerCase().includes(query));
+
+            renderContent(matchedProducts, matchedMaterials);
+        }
+
+        function renderCard(item, type) {
+            if (type === 'jewellery') {
+                return `
+                    <div class="product-card" onclick="openProductModal(${item.id})">
+                        <img src="${item.image}" alt="${item.title}" class="product-img">
+                        <div class="product-info">
+                            <div class="product-title">${item.title}</div>
+                            <div class="product-price">${item.price}</div>
+                            <button class="view-btn">Buy Now & View Materials</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                return `
+                    <div class="product-card" onclick="openMaterialModal('${item.name}', '${item.price}', '${item.image}')">
+                        <img src="${item.image}" alt="${item.name}" class="product-img">
+                        <div class="product-info">
+                            <div class="product-title">${item.name}</div>
+                            <div class="product-price">${item.price}</div>
+                            <button class="view-btn">Buy Raw Material</button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function openProductModal(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                document.getElementById('modalImg').src = product.image;
+                document.getElementById('modalTitle').textContent = product.title;
+                document.getElementById('modalPrice').textContent = product.price;
+                document.getElementById('modalDesc').textContent = product.description;
+                
+                const materialsGrid = document.getElementById('modalMaterialsGrid');
+                materialsGrid.innerHTML = product.materials.map(mat => `
+                    <div class="material-mini-card" onclick="openMaterialModal('${mat.name}', '${mat.price}', '${mat.image}')">
+                        <img src="${mat.image}" alt="${mat.name}">
+                        <span>${mat.name}</span>
+                        <small style="color:var(--primary); font-weight:bold;">${mat.price}</small>
+                    </div>
+                `).join('');
+                
+                const buyBtn = document.getElementById('modalBuyBtn');
+                buyBtn.onclick = function() {
+                    const text = encodeURIComponent(`Hello! I want to buy this complete jewellery item:\n\n*Name:* ${product.title}\n*Price:* ${product.price}\n*Image Link:* ${product.image}`);
+                    window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank');
+                };
+
+                document.getElementById('productModal').style.display = 'flex';
+            }
+        }
+
+        function openMaterialModal(name, price, image) {
+            event.stopPropagation();
+            document.getElementById('matModalTitle').textContent = name;
+            document.getElementById('matModalPrice').textContent = price;
+            document.getElementById('matModalImg').src = image;
+
+            const buyBtn = document.getElementById('matModalBuyBtn');
+            buyBtn.onclick = function() {
+                const text = encodeURIComponent(`Hello! I want to buy this raw material:\n\n*Name:* ${name}\n*Price:* ${price}\n*Image Link:* ${image}`);
+                window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank');
+            };
+
+            document.getElementById('materialModal').style.display = 'flex';
+        }
+
+        function openGeneralContactWhatsApp() {
+            const text = encodeURIComponent("Hello Aishi's Shop! I have some questions regarding your products.");
+            window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Skyshot Firework Animation Script
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Firework {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height;
+                this.targetY = Math.random() * (canvas.height * 0.5);
+                this.speed = 4 + Math.random() * 3;
+                this.angle = -Math.PI / 2 + (Math.random() * 0.4 - 0.2);
+                this.exploded = false;
+                this.particles = [];
+                this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+            }
+
+            update() {
+                if (!this.exploded) {
+                    this.y -= this.speed;
+                    if (this.y <= this.targetY) {
+                        this.exploded = true;
+                        for (let i = 0; i < 50; i++) {
+                            this.particles.push(new Particle(this.x, this.y, this.color));
+                        }
+                    }
+                } else {
+                    this.particles.forEach(p => p.update());
+                }
+            }
+
+            draw() {
+                if (!this.exploded) {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                } else {
+                    this.particles.forEach(p => p.draw());
+                }
+            }
+        }
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 5;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.015;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.05; // gravity
+                this.alpha -= this.decay;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(this.alpha, 0);
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        let fireworks = [];
+        function animateFireworks() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if (Math.random() < 0.04) {
+                fireworks.push(new Firework());
+            }
+
+            fireworks.forEach((fw, index) => {
+                fw.update();
+                fw.draw();
+                if (fw.exploded && fw.particles.every(p => p.alpha <= 0)) {
+                    fireworks.splice(index, 1);
+                }
+            });
+
+            requestAnimationFrame(animateFireworks);
+        }
+
+        initTrainShowcase();
+        switchPage('menu');
+        animateFireworks();
+    </script>
+</body>
+</html>
